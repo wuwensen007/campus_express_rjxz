@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>已抢到的订单</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+
+		<link href="assets-ace/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets-ace/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <!--<link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />-->
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+		<!--<link rel="stylesheet" href="assets-ace/css/jquery-ui-1.10.3.full.min.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/datepicker.css" />-->
+		<link rel="stylesheet" href="assets-ace/css/ui.jqgrid.css" />
+		<link rel="stylesheet" href="css/staffStyle.css" />
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets-ace/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-rtl.min.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-skins.min.css" />-->
+		<!--[if lte IE 8]>
+		  <!--<link rel="stylesheet" href="assets/css/ace-ie.min.css" />-->
+		<![endif]-->
+
+		<!--表格样式-->
+		<script type="text/javascript">
+            window.jQuery || document.write("<script src='assets-ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+		<script type="text/javascript" src="js/url.js"></script>
+		<!--<script src="assets-ace/js/bootbox.min.js"></script>-->
+		<!-- inline styles related to this page -->
+		<script src="assets-ace/js/ace-elements.min.js"></script>
+		<!-- ace settings handler -->
+
+		<!--<script src="assets-ace/js/ace-extra.min.js"></script>-->
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<!--<script src="assets/js/html5shiv.js"></script>-->
+		<!--<script src="assets/js/respond.min.js"></script>-->
+		<![endif]-->
+	</head>
+	<body>
+		<div class="page-content">
+			<div class="page-header">
+				<h1>
+					已抢到订单
+					<small>
+						<i class="icon-double-angle-right"></i>
+						代买
+					</small>
+				</h1>
+			</div><!-- /.page-header -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<!-- PAGE CONTENT BEGINS -->
+
+					<div class="alert alert-info">
+						<i class="icon-hand-right"></i>
+						提示：。。。。。。。。。。。。。。。。。。。
+						<button class="close" data-dismiss="alert">
+							<i class="icon-remove"></i>
+						</button>
+					</div>
+
+					<div class="ui-pg-div" align="right">
+						刷新<span class="ui-icon icon-refresh green" onclick="takeReload()"></span>
+					</div>
+
+					<table id="grid-table"></table>
+					<div id="grid-pager"></div>
+
+					<!-- PAGE CONTENT ENDS -->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content -->
+
+		<!-- basic scripts -->
+
+		<!--[if IE]>
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+		<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<!--<script type="text/javascript">
+			<!--window.jQuery || document.write("<script src='assets-ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+		<!--<script type="text/javascript">
+		 <!--window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<![endif]-->
+
+		<!--<script type="text/javascript">
+			<!--if("ontouchend" in document) document.write("<script src='assets-ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<script src="assets-ace/js/bootstrap.min.js"></script>
+		<!--<script src="assets-ace/js/typeahead-bs2.min.js"></script>-->
+
+		<!-- page specific plugin scripts -->
+
+		<script src="assets-ace/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="assets-ace/js/jqGrid/jquery.jqGrid.min.js"></script>
+		<script src="assets-ace/js/jqGrid/i18n/grid.locale-en.js"></script>
+		<script src="http://bootboxjs.com/bootbox.js"></script>
+		<!-- ace scripts -->
+
+		<!--<script src="assets-ace/js/ace-elements.min.js"></script>-->
+		<!--<script src="assets-ace/js/ace.min.js"></script>-->
+
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript">
+            var href=sessionStorage.getItem("path_base");
+            var courierId = JSON.parse(sessionStorage.getItem("staff")).id;
+
+            function takeReload() {
+                window.location.reload(true);
+            }
+
+            //接受json对象
+            function getJson() {
+                Obj=$.ajax({
+                    type:"GET",
+                    url:href+"/staff/getAllUndoneOrders?type=BUY",
+                    xhrFields:{withCredentials:true},
+                    async:false
+                });
+                jsonObj=Obj.responseText;
+                if(jsonObj=="") return;
+                eval("var json="+jsonObj);
+                //补充订单status字段
+                for(var i=0;i<json.length;i++){
+                    json[i].status='未接单';
+                    json[i].prices=json[i].spec.prices;
+                }
+                return json;
+            }
+
+            //根据id获取单个json对象
+            function getOrderJson(id) {
+                var json=grid_data;
+                for(var key=0;key<json.length;key++){
+                    if(json[key].id == id){
+                        return json[key];
+                    }
+                }
+                return null;
+            }
+
+			var grid_data = getJson();
+			jQuery(function($) {
+				var grid_selector = "#grid-table";
+				var pager_selector = "#grid-pager";
+                if(grid_data==null) {
+                    alert("抱歉，此时暂无代买订单");
+                }
+				jQuery(grid_selector).jqGrid({
+					//direction: "rtl",
+					data: grid_data,
+					datatype: "local",
+					height: 350,
+					colNames:['订单号','订单名称','订单价格' ,'客户名', '发布时间','订单状态', '操作'],
+					colModel:[
+						{name:'id',index:'订单号',id:'id',width:45, sorttype:"int", editable: true, align:"center"},
+						{name:'itemtype',index:'订单名称',width:70,editable: true, align:"center", editoptions:{size:"20",maxlength:"30"}},
+						{name:'prices',index:'商品价格',width:30, sorttype:"double",editable:true, align:"center"},
+						{name:'userid',index:'客户名', width:50,editable: true, align:"center", editoptions:{size:"20",maxlength:"30"}},
+						//{name:'地址',index:'地址', width:110,editable: true,editoptions:{size:"20",maxlength:"30"}},
+						//{name:'联系方式',index:'联系方式', width:60, sorttype:"int", editable: true},
+						{name:'time',index:'发布时间', width:70, editable:true, align:"center", sorttype:"date",unformat: pickDate},
+						//{name:'备注',index:'备注', width:150, sortable:false,editable: true,edittype:"textarea", editoptions:{rows:"2",cols:"10"}}
+                        {name:'status',index:'订单状态',width:45,editable:true, align:"center", formatter:"string",formatoptions:{defaultValue:'未接单'}},
+                        {name:'operation',index:'操作',width:100,editable:false, align:"center",formatter :formatModel }
+					],
+					viewrecords : true,
+					rowNum:10,
+					rowList:[10,20,30],
+					pager : pager_selector,
+					altRows: true,
+					//toppager: true,
+					
+					multiselect: true,
+					//multikey: "ctrlKey",
+			        multiboxonly: true,
+			
+					loadComplete : function() {
+						var table = this;
+						setTimeout(function(){
+							styleCheckbox(table);
+							updateActionIcons(table);
+							updatePagerIcons(table);
+							enableTooltips(table);
+						}, 0);
+					},
+			
+					//editurl: $path_base+"/dummy.html",//nothing is saved
+					caption: "订单列表",
+					autowidth: true
+				});
+
+                function formatModel(cellvalue, options, rowObject) {
+                    return "<button class=\"btn btn-sm btn-primary receiveOrder\">接单</button>" +
+                        "&nbsp;&nbsp;&nbsp;" +
+                        "<button class=\"btn btn-sm btn-success viewOrder\">查看详情</button>" +
+                        "&nbsp;&nbsp;&nbsp;" +
+                        "<button class=\"btn btn-sm btn-inverse drawBack\">撤销</button>";
+                }
+			
+				//enable search/filter toolbar
+				//jQuery(grid_selector).jqGrid('filterToolbar',{defaultSearch:true,stringResult:true})
+				//switch element when editing inline
+				function aceSwitch( cellvalue, options, cell ) {
+					setTimeout(function(){
+						$(cell) .find('input[type=checkbox]')
+								.wrap('<label class="inline" />')
+							.addClass('ace ace-switch ace-switch-5')
+							.after('<span class="lbl"></span>');
+					}, 0);
+				}
+				//enable datepicker
+				function pickDate( cellvalue, options, cell ) {
+					setTimeout(function(){
+						$(cell) .find('input[type=text]')
+								.datepicker({format:'yyyy-mm-dd' , autoclose:true}); 
+					}, 0);
+				}
+
+				//navButtons
+				jQuery(grid_selector).jqGrid('navGrid',pager_selector,
+					{ 	//navbar options
+						edit: true,
+						editicon : 'icon-pencil blue',
+						add: true,
+						addicon : 'icon-plus-sign purple',
+						del: true,
+						delicon : 'icon-trash red',
+						search: true,
+						searchicon : 'icon-search orange',
+						refresh: true,
+						refreshicon : 'icon-refresh green',
+						view: true,
+						viewicon : 'icon-zoom-in grey',
+					},
+					{
+						//edit record form
+						//closeAfterEdit: true,
+						recreateForm: true,
+						beforeShowForm : function(e) {
+							var form = $(e[0]);
+							form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+							style_edit_form(form);
+						}
+					},
+					{
+						//new record form
+						closeAfterAdd: true,
+						recreateForm: true,
+						viewPagerButtons: false,
+						beforeShowForm : function(e) {
+							var form = $(e[0]);
+							form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+							style_edit_form(form);
+						}
+					},
+					{
+						//delete record form
+						recreateForm: true,
+						beforeShowForm : function(e) {
+							var form = $(e[0]);
+							if(form.data('styled')) return false;
+							
+							form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+							style_delete_form(form);
+							form.data('styled', true);
+						},
+						onClick : function(e) {
+							alert(1);
+						}
+					},
+					{
+						//search form
+						recreateForm: true,
+						afterShowSearch: function(e){
+							var form = $(e[0]);
+							form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+							style_search_form(form);
+						},
+						afterRedraw: function(){
+							style_search_filters($(this));
+						},
+						multipleSearch: true,
+						/**
+						multipleGroup:true,
+						showQuery: true
+						*/
+					},
+					{
+						//view record form
+						recreateForm: true,
+						beforeShowForm: function(e){
+							var form = $(e[0]);
+							form.closest('.ui-jqdialog').find('.ui-jqdialog-title').wrap('<div class="widget-header" />')
+						}
+					}
+				);
+
+				//接单按钮
+                $(".receiveOrder").on("click", function() {
+                    //id = ""+$("#grid-table").jqGrid('getGridParam','selrow');
+                    id=$(this).parents("tr").children("td:nth-child(2)").text();
+                    var button=this;
+                    bootbox.confirm({
+                        buttons: {
+                            confirm: {
+                                label: '确认',
+                                className: 'btn btn-success'
+                            },
+                            cancel: {
+                                label: '取消',
+                                className: 'btn btn-default'
+                            }
+                        },
+                        title: "提示",
+                        message: id=='null'?'您未选中任何订单！':'是否接取<a href="#">'+id+'</a>号订单?',
+                        callback: function(result) {
+                            if(result) {
+                                if (sessionStorage.getItem("staff") == null || id == 'null') return;
+                                var bean = getOrderJson(id);
+                                //var userId=""+$("#grid-table").jqGrid('getRowData',id).userid;
+                                //button.style.visibility = "hidden";
+                                bean.courierid = courierId;
+                                $.ajax({
+                                    type: "POST",
+                                    url: href + "/staff/updateOrder",
+                                    data: bean,
+                                    xhrFields: {withCredentials: true},
+                                    success: function (data) {
+                                        bootbox.alert({
+                                            title: "接单结果",
+                                            buttons: {
+                                                ok: {
+                                                    label: '确定',
+                                                    className: 'btn-success'
+                                                }
+                                            },
+                                            message: data == true ? '恭喜您接单成功，快去派送吧！' : '接单失败，请重试！',
+                                            callback: function () {
+                                                if (!data) bean.courierid = null;
+                                                else {
+                                                    bean.status = "已接单";
+                                                    $("#grid-table").jqGrid('setCell', id, 'status', '已接单');
+                                                    $(button).attr('disabled', true);
+                                                    $(button).removeClass("btn-primary");
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    });
+                });
+
+                //查看详情的按钮
+                $(".viewOrder").on("click",function () {
+                    //id = $("#grid-table").jqGrid('getGridParam', 'selrow');
+                    id=$(this).parents("tr").children("td:nth-child(2)").text();
+                    var order=getOrderJson(id);
+                    if(id==null) msg="请选中后再试！";
+                    else if(order.courierid==null) msg="您还未接取该单！";
+                    else {
+                        msg = "<div id='detail'>"
+                            + "<div class='key'><span>订单ID：</span>" + id+"</div>"
+                            + "<div class='key'><span>商品(名称)类型：</span>" + order.itemtype+"</div>"
+                            + "<div class='key'><span>订单价格：</span>" +order.prices+"</div>"
+                            + "<div class='key'><span>状态：</span>"+order.status+"</div>"
+                            + "<div class='key'><span>发布时间：</span>" + order.time+"</div>"
+                            + "<div class='key'><span>接单人：</span>" + order.courierid+"</div>"
+                            + "<div class='key'><span>收件人：</span>" + order.userid+"</div>"
+                            + "<div class='key'><span>联系方式：</span>" + order.phone+"</div>"
+                            + "<div class='key'><span>收件地址：</span>" + order.receiveraddress+"</div>"
+                            + "<div class='key'><span>备注：</span>" + order.notes+"</div></div>";
+                    }
+					bootbox.alert({
+                        title: "订单详情",
+						message: msg,
+						buttons: {
+                            ok: {
+								label: '确定',
+								className: 'btn-success'
+							}
+						}
+					});
+                });
+
+                //撤销按钮
+                $(".drawBack").on("click",function () {
+                    id=$(this).parents("tr").children("td:nth-child(2)").text();
+                    var bean=getOrderJson(id);
+                    bootbox.confirm({
+                        buttons: {
+                            confirm: {
+                                label: '确定',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: '取消',
+                                className: 'btn-default'
+                            }
+                        },
+                        message:bean.courierid==null? '您还未接取该单！':'<div id="drawbackMsg">是否确定执行撤销操作？<br/>' +
+								 '<span>每次撤销会减少用户10积分，请谨慎使用！</span></div>',
+                        callback: function(result) {
+                            if(result&&bean.courierid!=null) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: href + "/staff/cancelOrder",
+                                    data: bean,
+                                    xhrFields: {withCredentials: true},
+                                    success: function (data) {
+                                        bootbox.alert({
+                                            title: "订单撤销结果",
+                                            buttons: {
+                                                ok: {
+                                                    label: '确定',
+                                                    className: 'btn-success'
+                                                }
+                                            },
+                                            message: data == true ? '订单撤销成功，界面即将刷新！' : '撤销失败，请重试！',
+                                            callback: function () {
+                                                if(data) takeReload();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        },
+                        title: "撤销提示"
+                    });
+                });
+
+				function style_delete_form(form) {
+					var buttons = form.next().find('.EditButton .fm-button');
+					buttons.addClass('btn btn-sm').find('[class*="-icon"]').remove();//ui-icon, s-icon
+					buttons.eq(0).addClass('btn-danger').prepend('<i class="icon-trash"></i>');
+					buttons.eq(1).prepend('<i class="icon-remove"></i>')
+				}
+				
+				function style_search_filters(form) {
+					form.find('.delete-rule').val('X');
+					form.find('.add-rule').addClass('btn btn-xs btn-primary');
+					form.find('.add-group').addClass('btn btn-xs btn-success');
+					form.find('.delete-group').addClass('btn btn-xs btn-danger');
+				}
+				function style_search_form(form) {
+					var dialog = form.closest('.ui-jqdialog');
+					var buttons = dialog.find('.EditTable')
+					buttons.find('.EditButton a[id*="_reset"]').addClass('btn btn-sm btn-info').find('.ui-icon').attr('class', 'icon-retweet');
+					buttons.find('.EditButton a[id*="_query"]').addClass('btn btn-sm btn-inverse').find('.ui-icon').attr('class', 'icon-comment-alt');
+					buttons.find('.EditButton a[id*="_search"]').addClass('btn btn-sm btn-purple').find('.ui-icon').attr('class', 'icon-search');
+				}
+				
+				function beforeDeleteCallback(e) {
+					var form = $(e[0]);
+					if(form.data('styled')) return false;
+					
+					form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+					style_delete_form(form);
+					
+					form.data('styled', true);
+				}
+				
+				function beforeEditCallback(e) {
+					var form = $(e[0]);
+					form.closest('.ui-jqdialog').find('.ui-jqdialog-titlebar').wrapInner('<div class="widget-header" />')
+					style_edit_form(form);
+				}
+			
+			
+			
+				//it causes some flicker when reloading or navigating grid
+				//it may be possible to have some custom formatter to do this as the grid is being created to prevent this
+				//or go back to default browser checkbox styles for the grid
+				function styleCheckbox(table) {
+				/**
+					$(table).find('input:checkbox').addClass('ace')
+					.wrap('<label />')
+					.after('<span class="lbl align-top" />')
+			
+			
+					$('.ui-jqgrid-labels th[id*="_cb"]:first-child')
+					.find('input.cbox[type=checkbox]').addClass('ace')
+					.wrap('<label />').after('<span class="lbl align-top" />');
+				*/
+				}
+				
+			
+				//unlike navButtons icons, action icons in rows seem to be hard-coded
+				//you can change them like this in here if you want
+				function updateActionIcons(table) {
+					/**
+					var replacement = 
+					{
+						'ui-icon-pencil' : 'icon-pencil blue',
+						'ui-icon-trash' : 'icon-trash red',
+						'ui-icon-disk' : 'icon-ok green',
+						'ui-icon-cancel' : 'icon-remove red'
+					};
+					$(table).find('.ui-pg-div span.ui-icon').each(function(){
+						var icon = $(this);
+						var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+						if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+					})
+					*/
+				}
+				
+				//replace icons with FontAwesome icons like above
+				function updatePagerIcons(table) {
+					var replacement = 
+					{
+						'ui-icon-seek-first' : 'icon-double-angle-left bigger-140',
+						'ui-icon-seek-prev' : 'icon-angle-left bigger-140',
+						'ui-icon-seek-next' : 'icon-angle-right bigger-140',
+						'ui-icon-seek-end' : 'icon-double-angle-right bigger-140'
+					};
+					$('.ui-pg-table:not(.navtable) > tbody > tr > .ui-pg-button > .ui-icon').each(function(){
+						var icon = $(this);
+						var $class = $.trim(icon.attr('class').replace('ui-icon', ''));
+						
+						if($class in replacement) icon.attr('class', 'ui-icon '+replacement[$class]);
+					})
+				}
+			
+				function enableTooltips(table) {
+					$('.navtable .ui-pg-button').tooltip({container:'body'});
+					$(table).find('.ui-pg-div').tooltip({container:'body'});
+				}
+			
+				//var selr = jQuery(grid_selector).jqGrid('getGridParam','selrow');
+			});
+		</script>
+</body>
+</html>

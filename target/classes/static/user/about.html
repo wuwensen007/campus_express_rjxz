@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>关于我们</title>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet'>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+		<link rel="stylesheet" href="css/header.css"/>
+		<link rel="stylesheet" href="css/footer.css"/>
+		<link rel='stylesheet' href="css/style.css" />
+		<link rel="stylesheet" href="css/about.css">
+		
+	</head>
+	<body>
+
+	<div id="app">
+		<!--页眉-->
+		<my-header></my-header>
+
+		<div class="card bg-dark text-white">
+			<img class="card-img" src="img/BG.jpg" alt="Card image">
+			<div class="card-img-overlay" id="cardcontent">
+				<h5 class="card-title">校园乐送帮</h5>
+				<p class="card-text">代买，代送，代取</p>
+				<p class="card-text">帮你解决日常琐事<br/>为你开启更轻松的生活方式</p>
+			</div>
+		</div>
+
+		<section id="about1" class="container-fluid text-center">
+
+			<h1>使用篇</h1>
+			<span class="help-block">Usage Method</span>
+
+			<ul class="row">
+				<li class="col steps">
+					<img src="img/one.png" alt="" class="img-circle"/>
+					<h4>打开<br/>校园乐送帮</h4>
+					<p>APP，PC官网均可</p>
+				</li>
+
+				<li class="col steps">
+					<img src="img/two.png" alt="" class="img-circle"/>
+					<h4>选择<br/>乐送帮业务</h4>
+					<p>代买，代送，代取</p>
+				</li>
+
+				<li class="col steps">
+					<img src="img/three.png" alt="" class="img-circle"/>
+					<h4>输入<br/>服务地点</h4>
+					<p>备注你的特殊需求或服务详情</p>
+				</li>
+
+				<li class="col steps">
+					<img src="img/four.png" alt="" class="img-circle"/>
+					<h4>下单<br/>支付费用</h4>
+					<p>为你推送订单,60秒极速接单</p>
+				</li>
+
+				<li class="col steps">
+					<img src="img/five.png" alt="" class="img-circle"/>
+					<h4>跑男接单<br/>开始服务</h4>
+					<p>跑男上门,一对一专人服务</p>
+				</li>
+			</ul>
+
+		</section>
+
+		<section id="about2" class="container-fluid text-center">
+
+			<h1>业务篇</h1>
+			<span class="help-block">Business Presentation</span>
+			<div id="lists" class="container">
+				<ul class="row">
+					<li class="col">
+						<img src="img/s_buy.png" class="img-rounded"/>
+						<h3>代买商品</h3>
+						<div class="bg">
+							<ul class="list-unstyled">
+								<li class="lh">烟酒</li>
+								<li class="lh">生鲜食品</li>
+								<li class="lh">日用百货</li>
+								<li class="lh">药品</li>
+								<li class="lh">咖啡</li>
+								<li class="lh">......</li>
+							</ul>
+						</div>
+
+					</li>
+					<li class="col">
+						<img src="img/s_send.png" class="img-rounded"/>
+						<h3>代送物品</h3>
+						<div class="bg">
+							<ul class="list-unstyled">
+								<li class="lh">鲜花蛋糕</li>
+								<li class="lh">3C数码</li>
+								<li class="lh">钥匙</li>
+								<li class="lh">农产品</li>
+								<li class="lh">贵重物品</li>
+								<li class="lh">......</li>
+							</ul>
+						</div>
+
+					</li>
+					<li class="col">
+						<img src="img/s_take.png" class="img-rounded"/>
+						<h3>代取物品</h3>
+						<div class="bg">
+							<ul class="list-unstyled">
+								<li class="lh">生活用品</li>
+								<li class="lh">服装鞋帽</li>
+								<li class="lh">办公用品</li>
+								<li class="lh">药品</li>
+								<li class="lh">票据</li>
+								<li class="lh">......</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+
+		</section>
+
+		<section id="about3" class="container-fluid text-center">
+
+			<h1>流程篇</h1>
+			<span class="help-block">Service Flow</span>
+
+			<ul class="row type">
+				<li class="col" v-on:mouseover="currentView = 'buyGood'">
+					<h5>帮我买</h5>
+				</li>
+				<li class="col" v-on:mouseover="currentView = 'sendGood'">
+					<h5>帮我送</h5>
+				</li>
+				<li class="col" v-on:mouseover="currentView = 'takeGood'">
+					<h5>帮我取</h5>
+				</li>
+			</ul>
+
+			<keep-alive>
+				<component :is="currentView"></component>
+			</keep-alive>
+		</section>
+
+		<!--页脚-->
+		<my-footer></my-footer>
+	</div>
+
+	<!-- Jquery和Bootstrap和vue -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<script src="js/responsive-nav.js"></script>
+
+	<script src="js/header.js"></script>
+	<script src="js/footer.js"></script>
+	<script src="js/about.js"></script>
+
+	<script src="js/responsive-nav.js"></script>
+	<script src="js/classie.js"></script>
+	<script src="js/uisearch.js"></script>
+	<script>
+        new UISearch( document.getElementById("sb-search") );
+	</script>
+
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<script src="js/login.js"></script>
+	<script src="js/jquery.easydropdown.js"></script>
+	<!--Animation-->
+	<script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+	<script>
+		new WOW().init();
+	</script>
+
+	</body>
+</html>

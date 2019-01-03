@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" xmlns:v-on="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Volton - Responsive Mobile Template</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/font-awesome.css">
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/templatemo-style.css">
+
+        <link rel="stylesheet"  href="http://unpkg.com/iview/dist/styles/iview.css">
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="http://unpkg.com/iview/dist/iview.min.js"></script>
+
+
+    </head>
+    <body>
+
+        <div id="app">
+
+
+
+            <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
+
+            <div class="responsive-header visible-xs visible-sm">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="top-section">
+                                <div class="profile-image">
+                                    <img src="img/profile.jpg" alt="Volton">
+                                </div>
+                                <div class="profile-content">
+                                    <h3 class="profile-title">Volton</h3>
+                                    <p class="profile-description">Pro Photography</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" class="toggle-menu"><i class="fa fa-bars"></i></a>
+                    <div class="main-navigation responsive-menu">
+                        <ul class="navigation">
+                            <li><a href="#top"><i class="fa fa-home"></i>个人信息</a></li>
+                            <li><a href="#about"><i class="fa fa-user"></i>订单信息</a></li>
+                            <li><a href="#projects"><i class="fa fa-newspaper-o"></i>我的账户</a></li>
+                            <li><a href="#contact"><i class="fa fa-envelope"></i>个人设置</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SIDEBAR -->
+            <div class="sidebar-menu hidden-xs hidden-sm">
+                <div class="top-section">
+                    <div class="profile-image">
+                        <img src="img/profile.jpg" alt="Volton">
+                    </div>
+                    <h3 class="profile-title">Volton</h3>
+                    <p class="profile-description">Pro Photography</p>
+                </div> <!-- top-section -->
+                <div class="main-navigation">
+                    <ul class="navigation">
+                        <li><a href="#top"><i class="fa fa-globe"></i>个人信息</a></li>
+                        <li><a href="#about"><i class="fa fa-pencil"></i>订单信息</a></li>
+                        <li><a href="#projects"><i class="fa fa-paperclip"></i>我的账户</a></li>
+                        <li><a href="#contact"><i class="fa fa-link"></i>个人设置</a></li>
+                    </ul>
+                </div> <!-- .main-navigation -->
+                <div class="social-icons">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+                        <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                    </ul>
+                </div> <!-- .social-icons -->
+            </div> <!-- .sidebar-menu -->
+
+            <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" >免费模板</a></div>
+
+            <!--个人信息-->
+            <div class="banner-bg" id="top">
+                <div class="banner-overlay"></div>
+                <div class="welcome-text">
+                    <h2>个人信息</h2>
+                    <h5 id="showProfile">
+                        <em>账号:</em><span v-html="myid"></span><br />
+                        <em>等级:</em><span v-html="mylevel"></span><br />
+                        <em>性别:</em><span v-html="mysex"></span><br />
+                        <em>手机号:</em><span v-html="myphone"></span><br />
+                        <em>密码:</em><span v-html="mypwd"></span><br />
+
+                        <em>昵称:</em><span v-html="mynickname"></span><br/>
+                        <em>所在城市:</em><span v-html="mycity"></span><br />
+                        <em>个性签名:</em><span v-html="mysignature"></span><br />
+                        <em>邮箱:</em><span v-html="myemail"></span><br />
+                        <em>地址:</em><span v-html="myaddress"></span><br />
+                        <button v-on:click="logout">注销账号</button>
+                    </h5>
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT -->
+            <div class="main-content">
+                <div class="fluid-container">
+
+                    <div class="content-wrapper">
+
+                        <!-- ABOUT -->
+                        <div class="page-section" id="about">
+
+
+
+                            <div class="col-12">
+                                <div class="row">
+                                    <ul class="nav nav-tabs" id="myTab2">
+                                        <li class="active"><a href="#div2_1">今日订单</a></li>
+                                        <li><a href="#div2_2">待收货</a></li>
+                                        <li><a href="#div2_3">已完成</a></li>
+                                        <li><a href="#div2_4">已取消</a></li>
+                                        <li><a href="#div2_5">全部订单</a></li>
+                                    </ul>
+                                    <button class="btn btn-danger pull-right">投诉</button>
+                                </div>
+
+                                <div class="tab-content" class="col-12">
+
+
+                                    <div class="tab-pane fade in active" id="div2_1">
+
+                                        <i-table :data="tableData1" :columns="tableColumns1" stripe></i-table>
+                                        <div style="margin-top: 10px;overflow: hidden">
+                                            <div style="float: right;">
+                                                <Page :total="100" :current="1" @on-change="changePage"></Page>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <hr/>
+
+                        <!-- CONTACT -->
+                        <div class="page-section container-fluid" id="contact">
+                            <div class="co-12">
+                                <ul class="nav nav-tabs" id="myTab4">
+                                    <li class="active"><a href="#updatePwd">修改密码</a></li>
+                                    <li><a href="#updateProfile">修改/填写个人信息</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content" class="col-12">
+
+                                <!--修改密码-->
+                                <div class="tab-pane fade in active" id="updatePwd">
+                                    <form>
+                                        <label for="myPassword">原密码:</label>
+                                        <div>
+                                            <input type="text" id="myPassword" v-model="mypassword" placeholder="原密码" />
+                                        </div>
+
+                                        <label for="newPwd">新密码:</label>
+                                        <div>
+                                            <input type="text" id="newPwd" v-model="mynewPwd" placeholder="新密码" />
+                                        </div>
+
+                                        <label for="confirmPwd">确认密码:</label>
+                                        <div>
+                                            <input type="text" id="confirmPwd" v-model="myconfirmPwd" placeholder="确认密码" />
+                                        </div>
+
+                                        <p>---<span v-html="mynewPwd"></span>--<span v-html="myconfirmPwd"></span>--<span v-html="newPwd"></span></p>
+                                        <input type="button" value="确认" v-on:click="updatePassword" />
+                                    </form>
+                                </div>
+
+                                <!--修改个人信息-->
+                                <div class="tab-pane fade in" id="updateProfile">
+
+                                    <form>
+
+                                        <label for="nickname">昵称:</label>
+                                        <div>
+                                            <input type="text" id="nickname" v-model="mynickname" />
+                                        </div>
+
+                                        <label for="sex">性别:</label>
+                                        <div>
+                                            <input type="text" id="sex"  v-model="mysex" placeholder="1代表男,0代表女" />
+                                        </div>
+
+                                        <label for="phone">手机号:</label>
+                                        <div>
+                                            <input type="text" id="phone" v-model="myphone" />
+                                        </div>
+
+                                        <label for="signature">个性签名:</label>
+                                        <div>
+                                            <input type="text" id="signature" v-model="mysignature" />
+                                        </div>
+
+                                        <label for="email">邮箱:</label>
+                                        <div>
+                                            <input type="text" id="email" v-model="myemail" />
+                                        </div>
+
+                                        <label for="city">所在城市:</label>
+                                        <div>
+                                            <input type="text" id="city" v-model="mycity"  />
+                                        </div>
+
+                                        <label for="address">收货地址:</label>
+                                        <div>
+                                            <input type="text" id="address" v-model="myaddress" />
+                                        </div>
+
+                                        <input type="button" value="确认修改" v-on:click="confirmUpdate" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div class="row" id="footer">
+                            <div class="col-md-12 text-center">
+                                <p class="copyright-text">Copyright &copy; 2084 Company Name | More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <script src="https://cdn.bootcss.com/modernizr/2.8.3/modernizr.min.js"></script>
+        
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="../js/accountUtil.js"></script>
+
+
+        <script src="js/profile.js"></script>
+
+
+        <script src="js/min/plugins.min.js"></script>
+        <script src="js/min/main.min.js"></script>
+        
+        <script>
+            $("#myTab2 li a").on("click",function(e){
+                $(this).tab("show");
+            });
+
+            $("#myTab4 li a").on("click",function(e){
+	            $(this).tab("show");
+	        });
+		</script>
+
+
+
+
+
+
+    </body>
+</html>

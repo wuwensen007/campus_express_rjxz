@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>接单记录</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+
+		<link href="assets-ace/css/bootstrap.min.css" rel="stylesheet" />
+		<!--<link rel="stylesheet" href="assets-ace/css/font-awesome.min.css" />-->
+
+		<!--[if IE 7]>
+		  <!--<link rel="stylesheet" href="assets-ace/css/font-awesome-ie7.min.css" />-->
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="assets-ace/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-rtl.min.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-skins.min.css" />-->
+
+		<!--[if lte IE 8]>
+		  <!--<link rel="stylesheet" href="assets-ace/css/ace-ie.min.css" />-->
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<!--<script src="assets-ace/js/ace-extra.min.js"></script>-->
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<!--<script src="assets/js/html5shiv.js"></script>-->
+		<!--<script src="assets/js/respond.min.js"></script>-->
+		<![endif]-->
+		<script type="text/javascript">
+            window.jQuery || document.write("<script src='assets-ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+	</head>
+	<script>
+        $(function(){
+            if(sessionStorage.getItem("staff")==null){
+                return;
+            }
+            var courierId=JSON.parse(sessionStorage.getItem("staff")).id;
+            $.post("http://localhost:8080/staff/getActivities",
+                {
+                    "userId":courierId
+                },
+                function (data) {
+                    if ( data.toString() == "false") {
+                        $("#today").html("获取数据失败");
+                    }else{
+                        createActivityTree(data);
+                    }
+                }
+            )
+
+        });
+	</script>
+
+
+	<body>
+		<div class="page-content">
+			<div class="page-header">
+				<h1>接单记录</h1>
+			</div><!-- /.page-header -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div id="timeline-2">
+						<div class="row">
+							<div class="col-xs-12 col-sm-10 col-sm-offset-1">
+								<div class="timeline-container timeline-style2">
+									<span class="timeline-label">
+										<b>今天</b>
+									</span>
+
+									<div class="timeline-items" id="today"></div>
+								</div><!-- /.timeline-container -->
+
+								<div class="timeline-container timeline-style2">
+									<span class="timeline-label">
+										<b>昨天</b>
+									</span>
+
+									<div class="timeline-items" id="yesterday"></div>
+								</div><!-- /.timeline-container -->
+
+								<div class="timeline-container timeline-style2">
+									<span class="timeline-label">
+										<b>两天前</b>
+									</span>
+
+									<div class="timeline-items" id="more"></div>
+								</div><!-- /.timeline-container -->
+							</div>
+						</div>
+					</div>
+
+					<!-- PAGE CONTENT ENDS -->
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+		</div><!-- /.page-content -->
+	</div><!-- /.main-content -->
+		<script type="text/javascript">
+			function createActivityTree(data) {
+				for(var i=0;i<data.length;i++){
+                    if(data[i].type=="接单"){
+                        TimeTree(data[i]);
+					}
+				}
+            }
+            function TimeTree(data) {
+                time=new Date(data.time);
+                nowtime=new Date();
+                temp=nowtime.getTime()-time.getTime();
+                var timeStr=data.time;
+                var day=Math.round(temp/60000/60/24);
+                if(day<=1){
+                    timeStr=time.toLocaleTimeString();
+				}
+                activityStr="<div class=\"timeline-item clearfix\">" +
+					"<div class=\"timeline-info\"><span class=\"timeline-date\">"+timeStr+"</span>" +
+					"<i class=\"timeline-indicator btn btn-info no-hover\"></i>" +
+					"</div>" +
+					"<div class=\"widget-box transparent\"><div class=\"widget-body\"><div class=\"widget-main no-padding\">" +
+					"<span class=\"bigger-110\">用户ID<a class=\"green\">"+data.userid+"</a>" +data.activity+"</span>"+
+					"</div></div></div>" +
+					"</div>";
+
+                if(day==0){
+                    $("#today").append(activityStr);
+				}else if(day==1){
+                    $("#yesterday").append(activityStr);
+				}else {
+                    $("#more").append(activityStr);
+				}
+            }
+		</script>
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<!--<script type="text/javascript">-->
+ <!--window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");-->
+<!--</script>-->
+<![endif]-->
+
+		<!--<script type="text/javascript">-->
+			<!--if("ontouchend" in document) document.write("<script src='assets-ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<!--<script src="assets-ace/js/bootstrap.min.js"></script>-->
+		<!--<script src="assets-ace/js/typeahead-bs2.min.js"></script>-->
+
+		<!-- page specific plugin scripts -->
+
+		<!-- ace scripts -->
+
+		<!--<script src="assets-ace/js/ace-elements.min.js"></script>-->
+		<!--<script src="assets-ace/js/ace.min.js"></script>-->
+
+		<!-- inline scripts related to this page -->
+
+		<!--<script type="text/javascript">-->
+			<!--jQuery(function($) {-->
+				<!--$('[data-toggle="buttons"] .btn').on('click', function(e){-->
+					<!--var target = $(this).find('input[type=radio]');-->
+					<!--var which = parseInt(target.val());-->
+					<!--$('[id*="timeline-"]').addClass('hide');-->
+					<!--$('#timeline-'+which).removeClass('hide');-->
+				<!--});-->
+			<!--});-->
+		<!--</script>-->
+	<!--<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>-->
+</body>
+</html>

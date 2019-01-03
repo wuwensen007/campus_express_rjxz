@@ -1,0 +1,29 @@
+spring:jackson:serialization:WRITE_DATES_AS_TIMESTAMPS: false
+
+spring:
+  datasource:
+      driver-class-name: com.mysql.jdbc.Driver
+      password: 091067
+      username: root
+      url: jdbc:mysql://localhost:3306/campus_service?useUnicode=true&characterEncoding=utf8&useSSL=false
+#      jdbc:mysql://localhost:3306/campus_service?useUnicode=true&characterEncoding=utf8&useSSL=false
+
+  redis:
+    host: localhost
+    port: 6379
+    password:
+    database: 0
+    timeout: 5000
+
+  server:
+    port: 8080
+    servlet: context-path:/xykd
+
+
+mybatis:
+  mapper-locations: classpath:com/rjxz/xykd/dao/*.xml
+
+
+
+
+

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">
+    <!--自定义样式-->
+    <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/footer.css"/>
+    <link rel='stylesheet' href="css/style.css" />
+    <link rel="stylesheet" href="css/orders.css" />
+
+</head>
+<body>
+
+    <div id="app">
+        <!--页眉-->
+        <my-header></my-header>
+
+        <section id="order" class="container-fluid">
+
+            <div class="row">
+
+                <!--选项卡导航栏-->
+                <my-aside></my-aside>
+
+                <aside class="col-lg-1">
+                    <ul class="nav nav-pills" id="myTab">
+                        <li class="active" v-on:click="orderView='orderBuyView'"><a href="#section1" data-toggle="tab">
+                            <h6>帮我买</h6></a>
+                        </li>
+                        <li v-on:click="orderView='orderSendView'"><a href="#section2" data-toggle="tab">
+                            <h6>帮我送</h6></a>
+                        </li>
+                        <li v-on:click="orderView='orderTakeView'"><a href="#section3" data-toggle="tab">
+                            <h6>帮我取</h6></a>
+                        </li>
+                    </ul>
+                </aside>
+
+                <!--选项卡内容-->
+                <div class="col-lg-11">
+
+                    <div id="myTabContent" class="tab-content">
+
+                        <keep-alive>
+                            <component v-bind:is="orderView"></component>
+                        </keep-alive>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--页脚-->
+        <my-footer></my-footer>
+    </div>
+
+    <!-- Jquery和Bootstrap和vue -->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+    <script src="js/order.js"></script>
+
+    <script src="js/responsive-nav.js"></script>
+    <script src="js/classie.js"></script>
+    <script src="js/uisearch.js"></script>
+    <script>
+        new UISearch( document.getElementById("sb-search") );
+    </script>
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <script src="js/login.js"></script>
+    <script src="js/jquery.easydropdown.js"></script>
+    <!--Animation-->
+    <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+    <script>
+        new WOW().init();
+    </script>
+
+    <!--单击时启用选项卡-->
+    <script>
+        $("ul#myTab li.active a").tab('show');
+        $("ul#myTab li a").click(function (e) {
+            e.preventDefault()
+            $(this).tab('show');
+        });
+    </script>
+
+</body>
+</html>

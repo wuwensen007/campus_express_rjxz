@@ -1,0 +1,37 @@
+/*div#app aside{*/
+    /*margin-top: 0em;*/
+/*}*/
+
+/*div#app section#Order{*/
+    /*margin-top: 4.8em;*/
+/*}*/
+
+
+div#app section#order form h6.title{
+    display: block;
+    text-align: left;
+    padding:5px 10px;
+    background-color: #555;
+    color:white;
+}
+
+#mylink{
+	margin-top: 20px;
+}
+
+
+
+#allmap{
+
+   	height:230px;
+    box-shadow: 0 0 3em black;
+    
+}
+
+#order{
+	margin-bottom: 20px;
+}
+
+
+
+

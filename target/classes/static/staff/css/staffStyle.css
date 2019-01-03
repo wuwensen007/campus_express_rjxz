@@ -1,0 +1,26 @@
+#detail{
+    margin: 0 100px 0 180px;
+    line-height:35px;
+}
+#detail .key span{
+    font-family: 微软雅黑;
+    font-weight:bold;
+}
+
+#drawbackMsg{
+    font-family: 微软雅黑;
+    font-size : 11pt;
+}
+#drawbackMsg span{
+    color:red;
+    font-family: 微软雅黑;
+    font-size: 8pt;
+}
+
+#sample-table-2 thead tr th{
+    text-align: center;
+}
+
+#sample-table-2 tbody tr td{
+    text-align: center;
+}

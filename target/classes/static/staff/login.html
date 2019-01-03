@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>校园骑士</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="assets-ace/css/ace.min.css" />
+    <!-- Le styles -->
+    <script type="text/javascript" src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/url.js"></script>
+    <!--<link rel="stylesheet" href="assets/css/style.css">-->
+    <!--<link rel="stylesheet" href="assets/css/loader-style.css">-->
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/signin.css">
+    <link rel="stylesheet" href="assets-ace/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="http://demo.lanrenzhijia.com/demo/47/4771/demo/css/verify.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="" id="login-wrapper">
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div id="logo-login">
+                        <h1>登录
+                            <span>快递员</span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="account-box"> 
+                        <form role="form">
+                            <div class="form-group">
+                                <!--a href="#" class="pull-right label-forgot">Forgot email?</a-->
+                                <label for="username">用户名:</label>
+                                <input type="text" id="username" class="form-control" placeholder="昵称或邮箱或电话">
+                            </div>
+                            <div class="form-group">
+                                <!--a href="#" class="pull-right label-forgot">Forgot password?</a-->
+                                <label for="password">密码:</label>
+                                <input type="password" id="password" class="form-control" placeholder="密码">
+                            </div>
+							<div class="form-group">
+                                <!--<label for="codeStr" class="control-label">验证码:</label>-->
+                                <!--<input type="text" id="codeStr" class="form-control" placeholder="验证码"/>-->
+                                <span>
+                                    <div id="mpanel1"></div>
+                                    <!--<img id="codeImg" height="25px" alt="加载中..."/>-->
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox">记住密码
+                                </label>
+                            </div>
+							<div class="form-group">
+								还没注册吗？ <a href="register.html">注册</a> | <a href="#modal-wizard" data-toggle="modal" class="pink">忘记密码</a>
+							</div>
+
+                            <button type="button" class="btn btn btn-default pull-left" id="enter">
+                                游客登录
+                            </button>
+
+                            <button type="button" class="btn btn btn-primary pull-right" id="submit">
+                                登 录
+                            </button>
+                        </form>
+                        <div class="row-block">
+	                        <div class="row">
+		                    </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="test1" class="gmap3"></div>
+
+    <div id="modal-wizard" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" data-target="#modal-step-contents">
+                    <ul class="wizard-steps">
+                        <li data-target="#modal-step1" class="active">
+                            <span class="step">1</span>
+                            <span class="title">邮箱验证</span>
+                        </li>
+
+                        <li data-target="#modal-step2">
+                            <span class="step">2</span>
+                            <span class="title">新密码</span>
+                        </li>
+
+                        <li data-target="#modal-step3">
+                            <span class="step">3</span>
+                            <span class="title">结果</span>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="modal-body step-content" id="modal-step-contents">
+                    <div class="step-pane active" id="modal-step1" >
+                        <div class="center">
+                            <h4 class="blue">邮箱验证</h4><br/>
+                            <form class="form-inline" >
+                                <div class="form-group">
+                                    <label for="email">邮箱 ：</label>&nbsp;&nbsp;&nbsp;
+                                    <input type="text" class="form-control" id="email">
+                                    <input type="button" class="btn btn-success" value="发送验证码" id="btn_send">
+                                </div>
+                                <br/>
+                                <span id="emailMsg"></span>
+                                <br/>
+                                <div class="form-group col-sm-10">
+                                    <label for="code">验证码：</label>
+                                    <input type="text" class="form-control" id="code"><br/>
+                                    <span id="codeMsg"></span>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="step-pane" id="modal-step2" onpropertychange="ClassChange(event)">
+                        <div class="center">
+                            <h4 class="blue">新密码</h4>
+                            <form class="form-inline" >
+                                <div class="form-group">
+                                    <label for="password2">新密码 ：</label>&nbsp;&nbsp;&nbsp;
+                                    <input type="password" class="form-control" id="password2">
+                                </div>
+                                <br/><br/>
+                                <div class="form-group">
+                                    <label for="repassword">重新输入：</label>
+                                    <input type="password" class="form-control" id="repassword">
+                                </div>
+                                <br/><span id="pwdInfo"></span>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="step-pane" id="modal-step3">
+                        <div class="center">
+                            <h4 class="blue">结果</h4>
+                            <h3 id="updateTip"></h3>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer wizard-actions">
+                    <button class="btn btn-sm btn-prev">
+                        <i class="icon-arrow-left"></i>
+                        上一步
+                    </button>
+
+                    <button class="btn btn-success btn-sm btn-next" data-last="完成 " id="next" >
+                        下一步
+                        <i class="icon-arrow-right icon-on-right"></i>
+                    </button>
+
+                    <button class="btn btn-danger btn-sm pull-left" data-dismiss="modal">
+                        <i class="icon-remove"></i>
+                        退出
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  END OF PAPER WRAP -->
+
+
+    <!--<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>-->
+    <!-- MAIN EFFECT -->
+    <!--<script type="text/javascript" src="assets/js/preloader.js"></script>-->
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <!--<script type="text/javascript" src="assets/js/app.js"></script>-->
+    <!--<script type="text/javascript" src="assets/js/load.js"></script>-->
+    <!--<script type="text/javascript" src="assets/js/main.js"></script>-->
+
+    <script src="assets-ace/js/ace-elements.min.js"></script>
+    <script src="assets-ace/js/fuelux/fuelux.wizard.min.js"></script>
+    <script type="text/javascript" src="http://demo.lanrenzhijia.com/demo/47/4771/demo/js/verify.js" ></script>
+
+
+    <script>
+        //滑动解锁
+        var codeflag=false;
+        $('#mpanel1').slideVerify({
+            type : 1,		//类型
+            vOffset : 5,	//误差量，根据需求自行调整
+            barSize : {
+                width : '320px',
+                height : '34px',
+            },
+            success : function() {
+                codeflag=true;
+            }
+        });
+
+        <!--生成请求-->
+        function createRequest() {
+            try{
+                request = new XMLHttpRequest();
+            }catch (e) {
+                try{
+                    request = new ActiveXObject("Msxml2.XMLHTTP");
+                }catch (e) {
+                    try {
+                        request = new ActiveXObject("Microsoft.XMLHTTP");
+                    }catch (e) {
+                        request = null;
+                    }
+                }
+            }
+            return request;
+        }
+
+        $(function(){
+            var flag;
+
+            $("#modal-wizard").on("hidden.bs.modal",function (){
+                window.location.reload(true);
+                $(this).removeData("bs.modal");
+            });
+
+            $('#modal-wizard .modal-header').ace_wizard();
+            $("#next").attr("disabled",true);
+
+            $("#btn_send").on('click',function () {
+                var email=$("#email").val();
+                emailRegx=/^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+                //验证邮箱格式
+                if(!emailRegx.exec(email)){
+                    $("#emailMsg").html("<font color='red'>邮箱格式错误!</font>");
+                    return;
+                }else{
+                    var time = 60;
+                    $("#emailMsg").html("");
+                    $(this).attr("disabled",true);
+                    $.ajax({
+                        type:"GET",
+                        url: sessionStorage.getItem("path_base")+"/api/setEmailCode?email="+email,
+                        dataType:"text",
+                        xhrFields: {withCredentials: true},
+                        success:function(msg){
+                            if(msg.toString()=="false"){
+                                alert("发送失败，请检查邮箱是否输入正确");
+                            }
+                        }
+                    });
+                    var timer = setInterval(function () {
+                        if(time == 0){
+                            $("#btn_send").removeAttr("disabled");
+                            $("#btn_send").val("重新发送");
+                            clearInterval(timer);
+                        }else {
+                            $("#btn_send").val(time+"s后重新发送");
+                            time--;
+                        }
+                    },1000);
+                }
+            });
+
+            $("#code").on("blur",function () {
+                code=$("#code").val();
+                if(code=="")return;
+                $.ajax({
+                    type:"GET",
+                    url: sessionStorage.getItem("path_base")+"/api/getEmailCode?code="+code,
+                    dataType:"text",
+                    xhrFields: {withCredentials: true},
+                    success:function(msg){
+                        if(msg.toString()=="true"){
+                            $("#next").attr("disabled",false);
+                            $("#codeMsg").html("");
+                        }else{
+                            $("#next").attr("disabled",true);
+                            $("#codeMsg").html("<font color='red'>请输入正确验证码</font>");
+                        }
+                    }
+                });
+            });
+
+            $("#repassword").on("blur",function () {
+                password2=$("#password2").val();
+                repassword=$("#repassword").val();
+                if(password2==repassword&&password2!=""){
+                    flag=true;
+                    $("#next").attr("disabled",false);
+                    $("#pwdInfo").html("");
+                }
+                else{
+                    $("#next").attr("disabled",true);
+                    $("#pwdInfo").html("<font color='red'>密码为空或密码输入不一致！</font>");
+                }
+            })
+
+            $("#next").on("click",function () {
+                $("#next").attr("disabled",true);
+                if(flag){
+                    $.ajax({
+                        type:"POST",
+                        url: sessionStorage.getItem("path_base")+"/api/updatePwd",
+                        dataType:"text",
+                        xhrFields: {withCredentials: true},
+                        async:false,
+                        data:{"password":$("#password2").val()},
+                        success:function (data) {
+                            if(data.toString()=="true")
+                                $("#updateTip").html("新密码设置成功,请牢记您设置的新密码!");
+                            else
+                                $("#updateTip").html("新密码更新失败，请重试！");
+                        }
+                    });
+                }else{
+                    $("#next").attr("disabled",true);
+                }
+            });
+
+            $("#enter").on("click",function () {
+                sessionStorage.removeItem("staff");
+                window.location.href="index.html";
+            });
+        });
+
+
+        //提交登录表单请求的ajax
+        $("#submit").on("click",function(){
+            var username = $("#username").val();
+            var password = $("#password").val();
+
+            //如果用户名和密码不完整,这不提交表单
+            if(username.length == 0|| password.length==0){
+                alert("用户名或密码输入不完整！");
+                return;
+            }
+            //验证框不正确
+            if(!codeflag){
+                alert("请重新滑动验证框！");
+                return;
+            }
+            //提交表单
+            $.get(sessionStorage.getItem("path_base")+"/api/login","email="+username+"&password="+password,
+            function (msg) {
+                if(msg != ""){
+                    sessionStorage.setItem("staff",JSON.stringify(msg));
+                    alert("登录成功");
+                    window.location.href="index.html";
+                }else{
+                    alert("登录失败,请重试!");
+                    window.location.reload(true);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

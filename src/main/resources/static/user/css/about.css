@@ -1,0 +1,110 @@
+div#app section #cardcontent{
+	margin-left: 150px;
+	margin-top: 80px;
+}
+
+div#app section ul li{
+    list-style: none;
+}
+
+/*业务介绍*/
+div#app section#about1{
+    margin-top:50px;
+}
+
+
+div#app section#about1 ul{
+    margin-top:70px;
+}
+
+.steps{
+    cursor: pointer;  
+    height:150px;
+}
+
+.steps:hover{
+    transform:translateY(-1.5em);
+    border:1px solid purple;
+}
+
+.steps img{
+    margin-top:-25px;
+ }
+
+
+ /*业务介绍2*/
+#about2
+{
+    margin-top: 70px;
+    padding-top: 60px;
+    padding-bottom: 30px;
+    
+    
+    background-color: #1a1a1a;
+    color:white;
+ }
+
+ #lists{
+     margin-top:75px;
+ }
+
+ .bg{
+    border-radius: 8px;
+    text-align: center;
+    background-color:rgba(255,255,255,0.1);
+ }
+
+ .bg>ul{
+    position: relative;
+    top:0px;
+    left:62px;
+    text-align: left;
+ }
+
+ .lh{
+    color:#fff;
+    line-height: 2em;
+ }
+
+ /*业务介绍3*/
+
+div#app section#about3
+{
+    margin-top:50px;
+}
+
+div#app section#about3 ul.type li{
+
+    display: inline-block;
+    box-shadow: 0 0 1em rgba(97, 59, 59, 0.8);
+    font-size: 2em;
+    padding:2px 50px;
+    margin-right: 2px;
+    cursor: pointer;
+    color:black;
+    background-color: white;
+    transition: color 0.5s;
+    transition: background-color 0.5s;
+}
+
+div#app section#about3 ul.type li:hover{
+
+    color:#FF8B03;
+    background-color: black;
+}
+
+ #bGood{
+    color:#FF8B03;
+    background-color: black;
+}
+
+div#app section#about3 ul.mystep{
+    margin-top:40px;
+}
+
+ul#flows_detail{
+    margin-top:40px;
+    /*margin-left: 0px;*/
+    /*margin-bottom: 30px;*/
+}
+

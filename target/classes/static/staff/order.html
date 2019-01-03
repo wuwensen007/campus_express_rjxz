@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>订单详情</title>
+		<!-- basic styles -->
+
+		<link href="assets-ace/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets-ace/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="css/staffStyle.css" />
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="assets-ace/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<!-- ace styles -->
+		<link rel="stylesheet" href="assets-ace/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-rtl.min.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-skins.min.css" />-->
+
+		<!--[if lte IE 8]>
+		  <!--<link rel="stylesheet" href="assets-ace/css/ace-ie.min.css" />-->
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<!--<script src="assets-ace/js/ace-extra.min.js"></script>-->
+
+		<!--表格样式-->
+		<script type="text/javascript">
+            window.jQuery || document.write("<script src='assets-ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<!--<script src="assets-ace/js/html5shiv.js"></script>-->
+		<!--<script src="assets-ace/js/respond.min.js"></script>-->
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="page-content">
+
+			<div class="page-header">
+				<h1>
+					订单列表
+					<small>
+						<i class="icon-double-angle-right"></i>
+						已接订单
+					</small>
+				</h1>
+			</div><!-- /.page-header -->
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="table-header">
+						快递员已接订单最新详情如下：
+					</div>
+
+					<div class="table-responsive">
+						<table id="sample-table-2" class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr>
+									<th class="center" width="90px">
+										<label>
+											<input type="checkbox" class="ace" />
+											<span class="lbl"></span>
+										</label>
+									</th>
+
+									<th width="110px">订单ID</th>
+
+									<th width="200px">订单名称</th>
+
+									<th width="150px">客户名</th>
+
+									<th width="190px"><i class="icon-time bigger-110 "></i>发布时间</th>
+
+									<th class="hidden-480" width="100px">订单类型</th>
+
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="dataTable"></tbody>
+						</table>
+					</div>
+				</div><!-- /.col -->
+			</div><!-- /.row -->
+
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="myModalLabel">订单详情</h4>
+						</div>
+
+						<div class="modal-body" id="modal-body"></div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal -->
+			</div>
+		</div><!-- /.page-content -->
+	</body>
+		<!-- basic scripts -->
+
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
+		<![endif]-->
+
+		<!--<script type="text/javascript">-->
+			<!--if("ontouchend" in document) document.write("<script src='assets-ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<script src="assets-ace/js/bootstrap.min.js"></script>
+		<!--<script src="assets-ace/js/typeahead-bs2.min.js"></script>-->
+
+		<!-- page specific plugin scripts -->
+
+		<script src="assets-ace/js/jquery.dataTables.min.js"></script>
+		<script src="assets-ace/js/jquery.dataTables.bootstrap.js"></script>
+		<script src="http://bootboxjs.com/bootbox.js"></script>
+		<!-- ace scripts -->
+
+		<!--<script src="assets-ace/js/ace-elements.min.js"></script>-->
+		<!--<script src="assets-ace/js/ace.min.js"></script>-->
+
+		<!-- inline scripts related to this page -->
+
+		<script type="text/javascript">
+            var href=sessionStorage.getItem("path_base");
+            var courierId=JSON.parse(sessionStorage.getItem("staff")).id;
+            var json;
+
+            $(function(){
+                $.ajaxSettings.async = false;
+                $.ajax({
+                    type:"GET",
+                    url: href+"/staff/getStaffAllOrders?courierId="+courierId,
+                    dataType:"text",
+                    xhrFields: {withCredentials: true},
+                    success:function(data){
+                        if(data.toString()=="[]"){
+                        }
+                        else{
+                            json=JSON.parse(data);
+                            createShowingTable(json);
+                        }
+                    }
+                });
+            });
+
+            //根据id获取单个json对象
+            function getOrderJson(id) {
+                for(var key=0;key<json.length;key++){
+                    if(json[key].id == id){
+                        json[key].status="已接单";
+                        json[key].prices=json[key].spec.prices;
+                        return json[key];
+                    }
+                }
+                return null;
+            }
+
+            function createShowingTable(data) {
+                var tableStr = "";
+                for (var i = 0; i < data.length; i++) {
+                    tableStr += "<tr >"+getCheckBox()
+                        + "<td class='id'>" + data[i].id + "</td>"
+                        + "<td class='itemtype'>" + data[i].itemtype + "</td>"
+                        + "<td class='userid'>" + data[i].userid + "</td>"
+                        + "<td class='time'>" + data[i].time + "</td>"
+                        + "<td class='type'>" + getOrderType(data[i].ordertype) + "</td>"
+                        + "<td class='operation'>" + getOperation() + "</td></tr>";
+                }       //将动态生成的table添加的事先隐藏的div中.
+                $("#dataTable").html(tableStr);
+            }
+            function getOperation() {
+                return "<button class=\"btn btn-sm btn-success viewOrder\">查看详情</button>" +
+                    "&nbsp;&nbsp;&nbsp;" +
+                    "<button class=\"btn btn-sm btn-inverse drawBack\">撤销</button>";
+            }
+
+            function getOrderType(type) {
+                var orderType;
+                switch(type){
+                    case "BUY":
+                        orderType= "<span class=\"label label-sm label-warning\">代买</span>";
+                        break;
+                    case "SEND":
+                        orderType= "<span class=\"label label-sm label-info arrowed arrowed-righ\">代拿</span>";
+                        break;
+                    case "TAKE":
+                        orderType= "<span class=\"label label-sm label-inverse arrowed-in\">代送</span>";
+                        break;
+                    default:
+                        orderType="<span class=\"label label-sm label-success\">不明</span>";
+                        break;
+                }
+                return orderType;
+            }
+
+            function getCheckBox() {
+                return "<td class=\"center\"><label>" +
+                    "<input type=\"checkbox\" class=\"ace\" />" +
+                    "<span class=\"lbl\"></span>" +
+                    "</label></td>";
+            }
+
+			jQuery(function($) {
+
+                //查看详情
+                $(".viewOrder").on("click",function () {
+                    var id=$(this).parents("tr").find(".id").text();
+                    var order=getOrderJson(id.toString());
+                    if(order.ordertype=='BUY') order.spec.senderaddress='无';
+                    var msg = "<div id='detail'>"
+                        + "<div class='key'><span>订单ID：</span>" + id+"</div>"
+                        + "<div class='key'><span>商品(名称)类型：</span>" + order.itemtype+"</div>"
+                        + "<div class='key'><span>订单价格：</span>" +order.prices+"</div>"
+                        + "<div class='key'><span>状态：</span>"+order.status+"</div>"
+                        + "<div class='key'><span>发布时间：</span>" + order.time+"</div>"
+                        + "<div class='key'><span>接单人：</span>" + order.courierid+"</div>"
+                        + "<div class='key'><span>收件人：</span>" + order.userid+"</div>"
+                        + "<div class='key'><span>联系方式：</span>" + order.phone+"</div>"
+                        + "<div class='key'><span>取件地址：</span>" + order.spec.senderaddress+"</div>"
+                        + "<div class='key'><span>送件地址：</span>" + order.receiveraddress+"</div>"
+                        + "<div class='key'><span>备注：</span>" + order.notes+"</div></div>";
+                    $("#modal-body").html(msg);
+                    $('#myModal').modal();
+                });
+
+                //撤销
+                $(".drawBack").on("click",function () {
+                    id=$(this).parents("tr").find(".id").text();
+                    var bean=getOrderJson(id);
+                    bootbox.confirm({
+                        buttons: {
+                            confirm: {
+                                label: '确定',
+                                className: 'btn-success'
+                            },
+                            cancel: {
+                                label: '取消',
+                                className: 'btn-default'
+                            }
+                        },
+                        message:bean.courierid==null? '您还未接取该单！':'<div id="drawbackMsg">是否确定执行撤销操作？<br/>' +
+                            '<span>每次撤销会减少用户10积分，请谨慎使用！</span></div>',
+                        callback: function(result) {
+                            if(result&&bean.courierid!=null) {
+                                $.ajax({
+                                    type: "POST",
+                                    url: href + "/staff/cancelOrder",
+                                    data: bean,
+                                    xhrFields: {withCredentials: true},
+                                    success: function (data) {
+                                        bootbox.alert({
+                                            title: "订单撤销结果",
+                                            buttons: {
+                                                ok: {
+                                                    label: '确定',
+                                                    className: 'btn-success'
+                                                }
+                                            },
+                                            message: data == true ? '订单撤销成功，界面即将刷新！' : '撤销失败，请重试！',
+                                            callback: function () {
+                                                if(data) window.location.reload(true);
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        },
+                        title: "撤销提示"
+                    });
+                });
+
+				var oTable1 = $('#sample-table-2').dataTable({
+					"aoColumns": [
+						{ "bSortable": false },
+						null, null,null, null, null,
+						{ "bSortable": false }
+					]
+				});
+
+
+				$('table th input:checkbox').on('click' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+						.each(function(){
+							this.checked = that.checked;
+							$(this).closest('tr').toggleClass('selected');
+						});
+				});
+
+
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+					function tooltip_placement(context, source) {
+						var $source = $(source);
+						var $parent = $source.closest('table')
+						var off1 = $parent.offset();
+						var w1 = $parent.width();
+						var off2 = $source.offset();
+						var w2 = $source.width();
+						if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+						return 'left';
+					}
+				});
+		</script>
+</html>

@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>用户信息页面</title>
+
+		<!-- basic styles -->
+		<link href="assets-ace/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="assets-ace/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <!--<link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />-->
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<!--<link rel="stylesheet" href="assets-ace/css/jquery-ui-1.10.3.custom.min.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/jquery.gritter.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/select2.css" />-->
+		<link rel="stylesheet" href="assets-ace/css/bootstrap-editable.css" />
+		<!-- ace styles -->
+		<link rel="stylesheet" href="assets-ace/css/ace.min.css" />
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-rtl.min.css" />-->
+		<!--<link rel="stylesheet" href="assets-ace/css/ace-skins.min.css" />-->
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+		<!-- ace settings handler -->
+		<script src="assets-ace/js/ace-extra.min.js"></script>
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<!--<script src="assets/js/html5shiv.js"></script>-->
+		<!--<script src="assets/js/respond.min.js"></script>-->
+		<![endif]-->
+		<script type="text/javascript">
+            window.jQuery || document.write("<script src='assets-ace/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+	</head>
+
+	<body>
+		<div class="page-content">
+			<div class="page-header">
+				&nbsp;
+				<h1>
+					用户信息
+					<small id="userId">
+						<i class="icon-double-angle-right"></i>
+						快递员
+					</small>
+				</h1>
+			</div><!-- /.page-header -->
+			<div class="row">
+				<div class="col-xs-12">
+				<!-- PAGE CONTENT BEGINS -->
+				<div class="clearfix">
+					<div class="pull-left alert alert-success no-margin">
+						<button type="button" class="close" data-dismiss="alert">
+							<i class="icon-remove"></i>
+						</button>
+						<i class="icon-umbrella bigger-120 blue"></i>
+						点击下面的图片，编辑你的头像。。。。
+					</div>
+				</div>
+
+				<div class="hr dotted"></div>
+
+				<div>
+					<div id="user-profile-1" class="user-profile row">
+						<div class="col-xs-12 col-sm-3 center">
+							<div class="space-12"></div>
+							<div>
+								<span class="profile-picture">
+								<img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="assets/avatars/profile-pic.jpg" />
+								</span>
+
+								<div class="space-4"></div>
+
+								<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+									<div class="inline position-relative">
+									<a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+										&nbsp;
+										<span class="white" id="nickname">游客</span>
+									</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-9">
+							<div class="center"></div>
+
+							<div class="space-12"></div>
+
+							<div class="profile-user-info profile-user-info-striped">
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 昵称： </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="username">游客（示例）</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 身份证号： </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="trueId">00000000000000</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 账号： </div>
+
+									<div class="profile-info-value">
+									<span class="editable" id="id">000000</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row" id="sex">
+									<div class="profile-info-name"> 性别： </div>
+
+									<div class="profile-info-value">
+										<label class="radio-inline">
+											<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="0"> 女
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1"> 男
+										</label>
+										<label class="radio-inline">
+											<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="2"checked> 保密
+										</label>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 年龄： </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="age">0</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 加入时间： </div>
+
+									<div class="profile-info-value">
+										<span class="editable" id="jointime">0/0/0</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 联系电话： </div>
+
+									<div class="profile-info-value">
+									<span class="editable" id="phone">121312221(示例)</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> Email： </div>
+									<div class="profile-info-value">
+									<span class="input-icon input-icon-right">
+										<input type="email" id="form-field-email" value="youke@xykd.com" />
+										<i class="icon-envelope"></i>
+									</span>
+									</div>
+								</div>
+
+								<div class="profile-info-row">
+								<div class="profile-info-name"> 地址： </div>
+								<div class="profile-info-value" id="address">
+									<select onchange="chinaChange(this,document.getElementById('city'))" id="province">
+										<option value ="请选择省份">请选择省份</option>
+										<option value ="北京市">北京市 </option>
+										<option value ="天津市">天津市 </option>
+										<option value ="上海市">上海市 </option>
+										<option value ="重庆市">重庆市 </option>
+										<option value ="河北省">河北省 </option>
+										<option value ="山西省">山西省 </option>
+										<option value ="辽宁省">辽宁省 </option>
+										<option value ="吉林省">吉林省 </option>
+										<option value ="黑龙江省">黑龙江省</option>
+										<option value ="江苏省">江苏省 </option>
+										<option value ="浙江省">浙江省 </option>
+										<option value ="安徽省">安徽省 </option>
+										<option value ="福建省">福建省 </option>
+										<option value ="江西省">江西省 </option>
+										<option value ="山东省">山东省 </option>
+										<option value ="河南省">河南省 </option>
+										<option value ="湖北省">湖北省 </option>
+										<option value ="湖南省">湖南省 </option>
+										<option value ="广东省">广东省 </option>
+										<option value ="海南省">海南省 </option>
+										<option value ="四川省">四川省 </option>
+										<option value ="贵州省">贵州省 </option>
+										<option value ="云南省">云南省 </option>
+										<option value ="陕西省">陕西省 </option>
+										<option value ="甘肃省">甘肃省 </option>
+										<option value ="青海省">青海省 </option>
+										<option value ="台湾省">台湾省 </option>
+										<option value ="广西壮族自治区">广西壮族自治区</option>
+										<option value ="内蒙古自治区">内蒙古自治区</option>
+										<option value ="西藏自治区">西藏自治区</option>
+										<option value ="宁夏回族自治区">宁夏回族自治区 </option>
+										<option value ="新疆维吾尔自治区">新疆维吾尔自治区</option>
+										<option value ="香港特别行政区">香港特别行政区</option>
+										<option value ="澳门特别行政区">澳门特别行政区</option>
+									</select>
+									<select name="city" id="city">
+										<option value ="请选择市区" id="citytStr">请选择市区</option>
+									</select>
+								</div>
+								</div>
+
+								<div class="profile-info-row">
+									<div class="profile-info-name"> 签名： </div>
+									<div class="profile-info-value">
+									<span class="editable" id="signature">请输入你的签名</span>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="hr hr2 hr-double"></div>
+
+							<div class="space-6"></div>
+							<div class="hr hr12 dotted"></div>
+
+							<div class="clearfix">
+								<div class="grid2">
+									<span class="bigger-175 blue" id="orderNum">0</span>
+
+									<br />
+									本月接单数
+								</div>
+
+								<div class="grid2">
+									<span class="bigger-175 blue" id="finishNum">0</span>
+
+									<br />
+									已完成的单数
+								</div>
+							</div>
+
+							<div class="hr hr16 dotted"></div>
+
+						</div>
+
+						<div class="clearfix form-actions">
+							<div class="col-md-offset-5 col-md-9">
+								<button class="btn btn-info" type="button" id="submit">
+									<i class="icon-ok bigger-110"></i>
+									提交
+								</button>
+
+								&nbsp; &nbsp;
+								<button class="btn" type="button" id="reset">
+									<i class="icon-undo bigger-110"></i>
+									重置
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				</div>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+
+		<!--<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">-->
+		<!--<i class="icon-double-angle-up icon-only bigger-110"></i>-->
+		<!--</a>-->
+
+		<!--[if IE]>
+		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min1.js"></script>-->
+		<![endif]-->
+
+		<!--<script type="text/javascript">-->
+			<!--if("ontouchend" in document) document.write("<script src='assets-ace/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");-->
+		<!--</script>-->
+		<script src="assets-ace/js/bootstrap.min.js"></script>
+		<script src="assets-ace/js/jquery.hotkeys.min.js"></script>
+		<!-- page specific plugin scripts -->
+
+		<!--[if lte IE 8]>
+		  <!--<script src="assets/js/excanvas.min.js"></script>-->
+		<![endif]-->
+		<!--<script src="assets-ace/js/jquery-ui-1.10.3.custom.min.js"></script>-->
+		<script src="assets-ace/js/jquery.gritter.min.js"></script>
+		<!--<script src="assets-ace/js/bootbox.min.js"></script>-->
+		<!--<script src="assets-ace/js/jquery.slimscroll.min.js"></script>-->
+		<!--<script src="assets-ace/js/jquery.easy-pie-chart.min.js"></script>-->
+		<!--<script src="assets-ace/js/jquery.hotkeys.min.js"></script>-->
+		<script src="assets-ace/js/bootstrap-wysiwyg.min.js"></script>
+		<!--<script src="assets-ace/js/select2.min.js"></script>-->
+		<script src="assets-ace/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="assets-ace/js/x-editable/bootstrap-editable.min.js"></script>
+		<script src="assets-ace/js/x-editable/ace-editable.min.js"></script>
+		<!--<script src="assets-ace/js/jquery.maskedinput.min.js"></script>-->
+
+		<!-- ace scripts -->
+
+		<script src="assets-ace/js/ace-elements.min.js"></script>
+		<!--<script src="assets-ace/js/ace.min.js"></script>-->
+
+		<!-- inline scripts related to this page -->
+		
+		<script type="text/javascript">
+            <!-- 地址下拉菜单 -->
+            var china=new Object();
+            china['北京市']=new Array('北京市区','北京市辖区');
+            china['上海市']=new Array('上海市区','上海市辖区');
+            china['天津市']=new Array('天津市区','天津市辖区');
+            china['重庆市']=new Array('重庆市区','重庆市辖区');
+            china['河北省'] = new Array('石家庄', '唐山市', '邯郸市', '秦皇市岛', '保市定', '张家市口', '承德市', '廊坊市', '沧州市', '衡水市', '邢台市');
+            china['山西省']=new Array('太原市','大同市','阳泉市','长治市','晋城市','朔州市','晋中市','运城市','忻州市','临汾市','吕梁市');
+            china['辽宁省']=new Array('沈阳市','大连市','鞍山市','抚顺市','本溪市','丹东市','锦州市','营口市','阜新市','辽阳市','盘锦市','铁岭市','朝阳市','葫芦岛市');
+            china['吉林省']=new Array('长春市','吉林市','四平市','辽源市','通化市','白山市','松原市','白城市','延边州','长白山管委会');
+            china['黑龙江省']=new Array('哈尔滨市','齐齐哈尔市','大庆市','佳木斯市','牡丹江市','七台河市','双鸭山市','黑河市','鸡西市','伊春市','绥化市','鹤岗市','加格达奇市');
+            china['江苏省']=new Array('南京市','苏州市','无锡市','常州市','南通市','扬州市','镇江市','泰州市','盐城市','连云港市','宿迁市','淮安市','徐州市');
+            china['浙江省']=new Array('杭州市','宁波市','温州市','嘉兴市','湖州市','绍兴市','金华市','衢州市','舟山市','台州市','丽水市');
+            china['安徽省']=new Array('合肥市','芜湖市','蚌埠市','淮南市','马鞍山市','淮北市','铜陵市','安庆市','黄山市','滁州市','阜阳市','宿州市','巢湖市','六安市','亳州市','池州市','宣城市');
+            china['福建省']=new Array('福州市','厦门市','莆田市','三明市','泉州市','漳州市','南平市','龙岩市','宁德市');
+            china['江西省']=new Array('南昌市','景德镇市','萍乡市','九江市','新余市','鹰潭市','赣州市','吉安市','宜春市','抚州市','上饶市');
+            china['山东省']=new Array('济南市','青岛市','淄博市','枣庄市','东营市','烟台市','潍坊市','济宁市','泰安市','威海市','日照市','莱芜市','临沂市','德州市','聊城市','滨州市','菏泽市');
+            china['河南省']=new Array('郑州市','开封市','洛阳市','平顶山市','安阳市','鹤壁市','新乡市','焦作市','濮阳市','许昌市','漯河市','三门峡市','南阳市','商丘市','信阳市','周口市','驻马店市');
+            china['湖北省']=new Array('武汉市','黄石市','十堰市','荆州市','宜昌市','襄樊市','鄂州市','荆门市','孝感市','黄冈市','咸宁市','随州市');
+            china['湖南省']=new Array('长沙市','株洲市','湘潭市','衡阳市','邵阳市','岳阳市','常德市','张家界市','益阳市','郴州市','永州市','怀化市','娄底市');
+            china['广东省']=new Array('广州市','深圳市','珠海市','汕头市','韶关市','佛山市','江门市','湛江市','茂名市','肇庆市','惠州市','梅州市','汕尾市','河源市','阳江市','清远市','东莞市','中山市','潮州市','揭阳市','云浮市');
+            china['海南省']=new Array('文昌市','琼海市','万宁市','五指山市','东方市','儋州市');
+            china['四川省 ']=new Array('成都市','自贡市','攀枝花市','泸州市','德阳市','绵阳市','广元市','遂宁市','内江市','乐山市','南充市','眉山市','宜宾市','广安市','达州市','雅安市','巴中市','资阳市');
+            china['贵州省']=new Array('贵阳市','六盘水市','遵义市','安顺市');
+            china['云南省']=new Array('昆明市','曲靖市','玉溪市','保山市','昭通市','丽江市','普洱市','临沧市');
+            china['陕西省']=new Array('西安市','铜川市','宝鸡市','咸阳市','渭南市','延安市','汉中市','榆林市','安康市','商洛市');
+            china['甘肃省']=new Array('兰州市','金昌市','白银市','天水市','嘉峪关市','武威市','张掖市','平凉市','酒泉市','庆阳市','定西市','陇南市');
+            china['青海省']=new Array('西宁市');
+            china['台湾省'] = new Array('台北市','高雄市','基隆市','台中市','台南市','新竹市','嘉义市');
+            china['广西壮族自治区']=new Array('南宁市','柳州市','桂林市','梧州市','北海市','防城港市','钦州市','贵港市','玉林市','百色市','贺州市','河池市','来宾市','崇左市');
+            china['内蒙古自治区']=new Array('呼和浩特市','包头市','乌海市','赤峰市','通辽市','鄂尔多斯市','呼伦贝尔市','巴彦淖尔市','乌兰察布市');
+            china['西藏自治区']=new Array('拉萨市');
+            china['宁夏回族自治区']=new Array('银川市','石嘴山市','吴忠市','固原市','中卫市');
+            china['新疆维吾尔自治区']=new Array('乌鲁木齐市','克拉玛依市');
+            china['香港特别行政区']=new Array('台北市','高雄市','基隆市','台中市','台南市','新竹市','嘉义市');
+
+            function chinaChange(province, city) {
+                var pv, cv;
+                var i, ii;
+                pv = province.value;
+                cv = city.value;
+                city.length = 1;
+                if (pv == '0') return;
+                if (typeof (china[pv]) == 'undefined') return;
+
+                for (i = 0; i < china[pv].length; i++) {
+                    ii = i + 1;
+                    city.options[ii] = new Option();
+                    city.options[ii].text = china[pv][i];
+                    city.options[ii].value = china[pv][i];
+                }
+                city.options[0].text = "请选择市区";
+            }
+
+            $('#submit').on("click",function () {
+                id = $("#id").text();
+                nickname = $("#nickname").text();
+                idnumber = $("#trueId").html();
+                age = $("#age").html()
+                jointime = $("#jointime").html().replace(/\//g, "-");
+                phone = $("#phone").html();
+                email = $("#form-field-email").val();
+                signature = $("#signature").html();
+                address = $("#province").val() + "," + $("#city").val();
+                sex = $('input:radio:checked').val();
+                finishNum = $("#finishNum").html();
+                orderNum = $("#orderNum").html();
+                password = JSON.parse(sessionStorage.getItem("staff")).password;
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/staff/updateStaffInfo",
+                    xhrFields: {withCredentials: true},
+                    data: {
+                        "id": id,
+                        "nickname": nickname,
+                        "idNumber": idnumber,
+                        "age": age,
+                        "jointime": jointime,
+                        "phone": phone,
+                        "email": email,
+                        "signature": signature,
+                        "address": address,
+                        "sex": sex,
+                        "finishNum": finishNum,
+                        "orderReceivingNum": orderNum,
+                        "password": password
+                    },
+                    success: function (msg) {
+                        if (msg == true) {
+                            json.id = id;
+                            json.password = password;
+                            json.nickname = nickname;
+                            json.idnumber = idnumber;
+                            json.age = age;
+                            json.jointime = jointime;
+                            json.email = email;
+                            json.phone = phone;
+                            json.signature = signature;
+                            json.address = address;
+                            json.sex = sex;
+                            json.finishnum = finishNum;
+                            json.orderreceivingnum = orderNum;
+                            sessionStorage.setItem("staff",JSON.stringify(json))
+                            if(confirm("修改成功！是否刷新该页面？")==true)
+                                window.location.reload(true);
+                        }
+                    }
+                });
+            });
+
+            $('#reset').on("click",function () {
+                $("#username").html("空");
+                $("#age").html("0");
+                $("#jointime").html("0/0/0");
+                $("#province").val("请选择省份");
+                $("#citytStr").html("请选择市区");
+                $("#form-field-email").val(" ");
+                $("#trueId").html("空");
+                $("#signature").html("空");
+                $('input:radio').eq("2").attr('checked', 'true');
+            })
+			jQuery(function($) {
+                if(sessionStorage.getItem("staff")==null){
+                    $("#submit").attr("disabled",true);
+                    return;
+                }
+                json=JSON.parse(sessionStorage.getItem("staff"));
+                userId=json.id==null?"未填写":json.id;
+                username=json.nickname;
+                trueId=json.idnumber==null?"未填写":json.idnumber;
+                age=json.age==null?0:json.age;
+                jointime=json.jointime==null?"0/0/0":new Date(json.jointime).toLocaleDateString();
+                province=json.address==null?"请选择省份":json.address.split(",")[0];
+                city=json.address==null?"请选择市区":json.address.split(",")[1];
+                phone=json.phone==null?0:json.phone;
+                email=json.email;
+                signature=json.signature;
+                orderNum=json.orderreceivingnum;
+                finishNum=json.finishnum;
+                sex=json.sex;
+                $("#userId").html("<i class=\"icon-double-angle-right\"></i>快递员"+userId);
+                $("#id").html(userId);
+                $("#nickname").html(username);
+                $("#username").html(username);
+                $("#trueId").html(trueId);
+                $("#age").html(age);
+                $("#jointime").html(jointime);
+                $("#phone").html(phone);
+                $("#province").val(province);
+                $("#citytStr").html(city);
+                $("#form-field-email").val(email);
+                $("#signature").html(signature);
+                $("#orderNum").html(orderNum);
+                $("#finishNum").html(finishNum);
+                $('input:radio').eq(sex).attr('checked', 'true');
+
+                if(sessionStorage.getItem("staff")==null){
+                    $("#submit").attr("disabled",true);
+                }
+
+				//editables on first profile page
+				$.fn.editable.defaults.mode = 'inline';
+				$.fn.editableform.loading = "<div class='editableform-loading'><i class='light-blue icon-2x icon-spinner icon-spin'></i></div>";
+			    $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="icon-ok icon-white"></i></button>'+
+			                                '<button type="button" class="btn editable-cancel"><i class="icon-remove"></i></button>';
+				//editables 
+			    $('#username').editable({
+					type: 'text',
+					name: 'username'
+			    });
+			    $('#trueId').editable({
+                    type: 'text',
+                    name: 'username'
+				});
+
+			    $('#phone').editable({
+                    type: 'text',
+                    name: 'username'
+				});
+
+				$('#jointime').editable({
+					type: 'date',
+					format: 'yyyy-mm-dd',
+					viewformat: 'dd/mm/yyyy',
+					datepicker: {
+						weekStart: 1
+					}
+				});
+			
+			    $('#age').editable({
+			        type: 'spinner',
+					name : 'age',
+					spinner : {
+						min : 16, max:99, step:1
+					}
+				});
+				
+				//var $range = document.createElement("INPUT");
+				//$range.type = 'range';
+			    $('#login').editable({
+			        type: 'slider',//$range.type == 'range' ? 'range' : 'slider',
+					name : 'login',
+					slider : {
+						min : 1, max:7, width:100
+					},
+					success: function(response, newValue) {
+						if(parseInt(newValue) == 1)
+							$(this).html(newValue);
+						else $(this).html(newValue);
+					}
+				});
+			
+				$('#signature').editable({
+					mode: 'inline',
+			        type: 'wysiwyg',
+					wysiwyg : {
+						//css : {'max-width':'300px'}
+					},
+					success: function(response, newValue) {
+					}
+				});
+
+				// *** editable avatar *** //
+				try {//ie8 throws some harmless exception, so let's catch it
+			
+					//it seems that editable plugin calls appendChild, and as Image doesn't have it, it causes errors on IE at unpredicted points
+					//so let's have a fake appendChild for it!
+					if( /msie\s*(8|7|6)/.test(navigator.userAgent.toLowerCase()) ) Image.prototype.appendChild = function(el){}
+			
+					var last_gritter
+					$('#avatar').editable({
+						type: 'image',
+						name: 'avatar',
+						value: null,
+						image: {
+							//specify ace file input plugin's options here
+							btn_choose: 'Change Avatar',
+							droppable: true,
+							/**
+							//this will override the default before_change that only accepts image files
+							before_change: function(files, dropped) {
+								return true;
+							},
+							*/
+							//and a few extra ones here
+							name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+							max_size: 110000,//~100Kb
+							on_error : function(code) {//on_error function will be called when the selected file has a problem
+								if(last_gritter) $.gritter.remove(last_gritter);
+								if(code == 1) {//file format error
+									last_gritter = $.gritter.add({
+										title: '文件中不包含图片!',
+										text: '请选择文件后缀名为jpg|gif|png的图片!',
+										class_name: 'gritter-error gritter-center'
+									});
+								} else if(code == 2) {//file size rror
+									last_gritter = $.gritter.add({
+										title: '文件太大，请重试!',
+										text: '图像大小不应超过100Kb!',
+										class_name: 'gritter-error gritter-center'
+									});
+								}
+								else {//other error
+								}
+							},
+							on_success : function() {
+								$.gritter.removeAll();
+							}
+						},
+					    url: function(params) {
+							// ***UPDATE AVATAR HERE*** //
+							//You can replace the contents of this function with examples/profile-avatar-update.js for actual upload
+			
+			
+							var deferred = new $.Deferred
+			
+							//if value is empty, means no valid files were selected
+							//but it may still be submitted by the plugin, because "" (empty string) is different from previous non-empty value whatever it was
+							//so we return just here to prevent problems
+							var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+							if(!value || value.length == 0) {
+								deferred.resolve();
+								return deferred.promise();
+							}
+
+							//dummy upload
+							setTimeout(function(){
+								if("FileReader" in window) {
+									//for browsers that have a thumbnail of selected image
+									var thumb = $('#avatar').next().find('img').data('thumb');
+									if(thumb) $('#avatar').get(0).src = thumb;
+								}
+								
+								deferred.resolve({'status':'OK'});
+			
+								if(last_gritter) $.gritter.remove(last_gritter);
+								last_gritter = $.gritter.add({
+									title: '上传成功！',
+									text: '图片符合要求，上传成功！',
+									class_name: 'gritter-info gritter-center'
+								});
+								
+							 } , parseInt(Math.random() * 800 + 800))
+			
+							return deferred.promise();
+						},
+						success: function(response, newValue) {
+						}
+					})
+				}catch(e) {}
+			
+				//another option is using modals
+				$('#avatar2').on('click', function(){
+					var modal = 
+					'<div class="modal hide fade">\
+						<div class="modal-header">\
+							<button type="button" class="close" data-dismiss="modal">&times;</button>\
+							<h4 class="blue">Change Avatar</h4>\
+						</div>\
+						\
+						<form class="no-margin">\
+						<div class="modal-body">\
+							<div class="space-4"></div>\
+							<div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+						</div>\
+						\
+						<div class="modal-footer center">\
+							<button type="submit" class="btn btn-small btn-success"><i class="icon-ok"></i> Submit</button>\
+							<button type="button" class="btn btn-small" data-dismiss="modal"><i class="icon-remove"></i> Cancel</button>\
+						</div>\
+						</form>\
+					</div>';
+					
+					
+					var modal = $(modal);
+					modal.modal("show").on("hidden", function(){
+						modal.remove();
+					});
+			
+					var working = false;
+			
+					var form = modal.find('form:eq(0)');
+					var file = form.find('input[type=file]').eq(0);
+					file.ace_file_input({
+						style:'well',
+						btn_choose:'Click to choose new avatar',
+						btn_change:null,
+						no_icon:'icon-picture',
+						thumbnail:'small',
+						before_remove: function() {
+							//don't remove/reset files while being uploaded
+							return !working;
+						},
+						before_change: function(files, dropped) {
+							var file = files[0];
+							if(typeof file === "string") {
+								//file is just a file name here (in browsers that don't support FileReader API)
+								if(! (/\.(jpe?g|png|gif)$/i).test(file) ) return false;
+							}
+							else {//file is a File object
+								var type = $.trim(file.type);
+								if( ( type.length > 0 && ! (/^image\/(jpe?g|png|gif)$/i).test(type) )
+										|| ( type.length == 0 && ! (/\.(jpe?g|png|gif)$/i).test(file.name) )//for android default browser!
+									) return false;
+								if( file.size > 110000 ) {//~100Kb
+									return false;
+								}
+							}
+							return true;
+						}
+					});
+			
+					form.on('submit', function(){
+						if(!file.data('ace_input_files')) return false;
+
+						file.ace_file_input('disable');
+						form.find('button').attr('disabled', 'disabled');
+						form.find('.modal-body').append("<div class='center'><i class='icon-spinner icon-spin bigger-150 orange'></i></div>");
+
+						var deferred = new $.Deferred;
+						working = true;
+						deferred.done(function() {
+							form.find('button').removeAttr('disabled');
+							form.find('input[type=file]').ace_file_input('enable');
+							form.find('.modal-body > :last-child').remove();
+
+							modal.modal("hide");
+
+							var thumb = file.next().find('img').data('thumb');
+							if(thumb) $('#avatar2').get(0).src = thumb;
+
+							working = false;
+						});
+						setTimeout(function(){
+							deferred.resolve();
+						} , parseInt(Math.random() * 800 + 800));
+
+						return false;
+					});
+							
+				});
+				//change profile
+				$('[data-toggle="buttons"] .btn').on('click', function(e){
+					var target = $(this).find('input[type=radio]');
+					var which = parseInt(target.val());
+					$('.user-profile').parent().addClass('hide');
+					$('#user-profile-'+which).parent().removeClass('hide');
+				});
+			});
+		</script>
+		
+	<!--<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>-->
+</body>
+</html>
